@@ -41,6 +41,7 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 
 TODO:
 
-- [ ] 增加深度控制
+- [x] 增加深度控制
 - [ ] 增加导出 excel 功能
 - [ ] 打包 exe
+- [ ] 修改名称和图表

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"> -->
     <link href="./styles.css" rel="stylesheet">
-    <title>Hello World!</title>
+    <title>文件夹 to Excel</title>
 </head>
 
 <body>
@@ -13,7 +13,7 @@
     <div style="margin-bottom: 20px">
         <button id="pick-btn">请选择文件夹</button>
         <input type="file" name="image_uploads" id="fileInput" webkitdirectory directory />
-
+        <input type="number" id="max-depth" placeholder="深度" min="0" step="1" value="0" />
     </div>
     <ul id="tree"></ul>
     <!-- You can also require other files to run in this process -->

@@ -7,6 +7,7 @@
  */
 var pickBtn = document.getElementById("pick-btn");
 var fileInput = document.getElementById("fileInput");
+var maxDepth = document.getElementById("max-depth");
 
 pickBtn.addEventListener("click", function () {
 	fileInput.click();
@@ -17,6 +18,20 @@ fileInput.addEventListener("change", (e) => {
 	var parentPath = filePath.substring(0, filePath.lastIndexOf("/"));
 	submit(parentPath);
 });
+
+maxDepth.addEventListener("change", (e) => {
+	handleTreeDeep(e.target.value);
+});
+
+function handleTreeDeep(depth) {
+	var toggler = document.getElementsByClassName("caret");
+	var i;
+
+	for (i = 0; i < toggler.length; i++) {
+		toggler[i].parentElement.style.display =
+			depth === "0" || i < depth ? "block" : "none";
+	}
+}
 
 function submit(folderPath) {
 	if (!folderPath) {
