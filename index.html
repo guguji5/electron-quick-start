@@ -6,6 +6,7 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"> -->
     <link href="./styles.css" rel="stylesheet">
     <title>文件夹 to Excel</title>
+    <script src="./service.js"></script>
 </head>
 
 <body>
@@ -14,6 +15,7 @@
         <button id="pick-btn">请选择文件夹</button>
         <input type="file" name="image_uploads" id="fileInput" webkitdirectory directory />
         <input type="number" id="max-depth" placeholder="深度" min="0" step="1" value="0" />
+        <button id="export" style="display: none;">导出为Excel</button>
     </div>
     <ul id="tree"></ul>
     <!-- You can also require other files to run in this process -->

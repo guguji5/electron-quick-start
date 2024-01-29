@@ -3,10 +3,30 @@ const { app, BrowserWindow } = require("electron");
 const path = require("node:path");
 const fs = require("node:fs");
 const http = require("node:http");
+let converter = require("json-2-csv");
+let tree;
 
 http
 	.createServer((req, res) => {
-		res.end(JSON.stringify(buildFileTreebyPath(decodeURIComponent(req.url))));
+		if (req.url.startsWith("/folderPath")) {
+			const folderPath = decodeURIComponent(req.url.substring(12));
+			tree = buildFileTreebyPath(folderPath);
+			res.end(JSON.stringify(tree));
+		} else if (req.url.startsWith("/export")) {
+			const maxDepth = req.url.substring(8);
+			const name = tree?.name;
+			const excle = mapBinaryArr2Obj(
+				appendTotalOfEveryLine(
+					tree2List(tree, maxDepth !== "0" ? maxDepth : Infinity)
+				)
+			);
+			converter.json2csv(excle, (err, csv) => {
+				fs.writeFileSync(name + ".csv", csv);
+			});
+			res.end("test.csv");
+		} else {
+			res.end("aaa");
+		}
 	})
 	.listen(8096);
 
@@ -17,6 +37,52 @@ http
 function getLastFolderNameBy(path) {
 	let arr = path.split("/");
 	return arr[arr.length - 1];
+}
+
+function tree2List(tree, depth) {
+	const binaryArr = [];
+	function walkTree(tree, cb, parent = {}) {
+		cb(tree, parent);
+		if (tree.files) {
+			tree.files.forEach((item) => walkTree(item, cb, tree));
+		}
+	}
+	walkTree(tree, (item, parent) => {
+		item.path = parent.path ? [...parent.path, item.name] : [item.name];
+		binaryArr.push(parent.path ? [...parent.path, item.name] : [item.name]);
+	});
+	return binaryArr.map((arr) => arr.slice(0, depth));
+}
+
+function appendTotalOfEveryLine(binaryArr) {
+	const nameMap = new Map();
+	const maxLengthInBinaryArr = Math.max(...binaryArr.map((arr) => arr.length));
+	const flattenArr = binaryArr.flat();
+	for (let i = 0; i < flattenArr.length; i++) {
+		const name = flattenArr[i];
+		if (nameMap.has(name)) {
+			nameMap.set(name, nameMap.get(name) + 1);
+		} else {
+			nameMap.set(name, 1);
+		}
+	}
+	for (let i = 0; i < binaryArr.length; i++) {
+		const arr = binaryArr[i];
+		arr[maxLengthInBinaryArr] = nameMap.get(arr[arr.length - 1]);
+	}
+	return binaryArr;
+}
+
+function mapBinaryArr2Obj(binaryArr) {
+	const maxLengthInBinaryArr = Math.max(...binaryArr.map((arr) => arr.length));
+	return binaryArr.map((arr) => {
+		const obj = {};
+		for (let i = 0; i < maxLengthInBinaryArr; i++) {
+			obj[maxLengthInBinaryArr === i + 1 ? "total" : `level${i || ""}`] =
+				arr[i] || "";
+		}
+		return obj;
+	});
 }
 
 function buildFileTreebyPath(path) {
