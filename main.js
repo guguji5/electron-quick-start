@@ -22,8 +22,8 @@ http
 			);
 			converter.json2csv(excle, (err, csv) => {
 				fs.writeFileSync(name + ".csv", csv);
+				res.end(name + ".csv");
 			});
-			res.end("test.csv");
 		} else {
 			res.end("aaa");
 		}

@@ -1,43 +1,4 @@
-# electron-quick-start
-
-**Clone and run for a quick way to see Electron in action.**
-
-This is a minimal Electron application based on the [Quick Start Guide](https://electronjs.org/docs/latest/tutorial/quick-start) within the Electron documentation.
-
-A basic Electron application needs just these files:
-
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
-- `preload.js` - A content script that runs before the renderer process loads.
-
-You can learn more about each of these components in depth within the [Tutorial](https://electronjs.org/docs/latest/tutorial/tutorial-prerequisites).
-
-## To Use
-
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
-```bash
-# Clone this repository
-git clone https://github.com/electron/electron-quick-start
-# Go into the repository
-cd electron-quick-start
-# Install dependencies
-npm install
-# Run the app
-npm start
-```
-
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
-
-## Resources for Learning Electron
-
-- [electronjs.org/docs](https://electronjs.org/docs) - all of Electron's documentation
-- [Electron Fiddle](https://electronjs.org/fiddle) - Electron Fiddle, an app to test small Electron experiments
-
-## License
-
-[CC0 1.0 (Public Domain)](LICENSE.md)
+export NODE_TLS_REJECT_UNAUTHORIZED=0
 
 TODO:
 
@@ -45,3 +6,29 @@ TODO:
 - [ ] 增加导出 excel 功能
 - [ ] 打包 exe
 - [ ] 修改名称和图表
+
+```
+An unhandled rejection has occurred inside Forge:
+Error: Failed with exit code: 255
+Output:
+System.UnauthorizedAccessException: Access to the path '/Users/flashcat/.local/share/SquirrelTemp' is denied. ---> System.IO.IOException: Permission denied
+   --- End of inner exception stack trace ---
+  at System.IO.FileSystem.CreateDirectory (System.String fullPath) [0x00191] in <83a10ac9d03d4b5b9cab686735823828>:0
+  at System.IO.DirectoryInfo.Create () [0x00000] in <83a10ac9d03d4b5b9cab686735823828>:0
+  at (wrapper remoting-invoke-with-check) System.IO.DirectoryInfo.Create()
+  at Squirrel.Utility.GetTempDirectory (System.String localAppDirectory) [0x00032] in <1ffb1a5dca5b4f2f93386cec56fd9ec2>:0
+  at Squirrel.Utility.WithTempDirectory (System.String& path, System.String localAppDirectory) [0x00006] in <1ffb1a5dca5b4f2f93386cec56fd9ec2>:0
+  at Squirrel.ReleasePackage.CreateReleasePackage (System.String outputFile, System.String packagesRootDir, System.Func`2[T,TResult] releaseNotesProcessor, System.Action`1[T] contentsPostProcessHook) [0x00122] in <1ffb1a5dca5b4f2f93386cec56fd9ec2>:0
+  at Squirrel.Update.Program.Releasify (System.String package, System.String targetDir, System.String packagesDir, System.String bootstrapperExe, System.String backgroundGif, System.String signingOpts, System.String baseUrl, System.String setupIcon, System.Boolean generateMsi, System.Boolean packageAs64Bit, System.String frameworkVersion, System.Boolean generateDeltas) [0x00214] in <1ffb1a5dca5b4f2f93386cec56fd9ec2>:0
+  at Squirrel.Update.Program.executeCommandLine (System.String[] args) [0x00116] in <1ffb1a5dca5b4f2f93386cec56fd9ec2>:0
+  at Squirrel.Update.Program.main (System.String[] args) [0x00113] in <1ffb1a5dca5b4f2f93386cec56fd9ec2>:0
+  at Squirrel.Update.Program.Main (System.String[] args) [0x00006] in <1ffb1a5dca5b4f2f93386cec56fd9ec2>:0
+at ChildProcess.<anonymous> (/Users/flashcat/JavaScript/electron-quick-start/node_modules/electron-winstaller/lib/spawn-promise.js:49:24)
+    at ChildProcess.emit (node:events:527:28)
+    at ChildProcess.emit (node:domain:475:12)
+    at maybeClose (node:internal/child_process:1092:16)
+    at Socket.<anonymous> (node:internal/child_process:451:11)
+    at Socket.emit (node:events:539:35)
+    at Socket.emit (node:domain:475:12)
+    at Pipe.<anonymous> (node:net:709:12)
+```
