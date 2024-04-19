@@ -7,7 +7,7 @@ let converter = require("json-2-csv");
 let tree;
 
 http
-	.createServer((req, res) => {
+	.createServer(async (req, res) => {
 		if (req.url.startsWith("/folderPath")) {
 			const folderPath = decodeURIComponent(req.url.substring(12));
 			tree = buildFileTreebyPath(folderPath);
@@ -20,10 +20,9 @@ http
 					tree2List(tree, maxDepth !== "0" ? maxDepth : Infinity)
 				)
 			);
-			converter.json2csv(excle, (err, csv) => {
-				fs.writeFileSync(name + ".csv", csv);
-			});
-			res.end("test.csv");
+			const csv = await converter.json2csv(excle);
+			fs.writeFileSync(name + ".csv", csv);
+			res.end(name + ".csv");
 		} else {
 			res.end("aaa");
 		}
