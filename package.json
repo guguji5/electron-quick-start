@@ -18,5 +18,8 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^28.1.4"
+  },
+  "dependencies": {
+    "json-2-csv": "^5.5.1"
   }
 }
