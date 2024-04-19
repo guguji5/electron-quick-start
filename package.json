@@ -9,7 +9,7 @@
     "build": "electron-builder --windows",
     "release": "electron-builder --windows --publish always"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/guguji5/electron-quick-start",
   "keywords": [
     "Electron",
     "quick",
