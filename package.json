@@ -4,7 +4,10 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron . --enable-logging"
+    "start": "electron . --enable-logging",
+    "postinstall": "electron-builder install-app-deps",
+    "build": "electron-builder --windows",
+    "release": "electron-builder --windows --publish always"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -20,6 +23,7 @@
     "electron": "^28.1.4"
   },
   "dependencies": {
+    "electron-builder": "^24.13.3",
     "json-2-csv": "^5.5.1"
   }
 }
